@@ -1,5 +1,6 @@
-package lk.ijse.spring.dto;
+package lk.ijse.spring.dto.impl;
 
+import lk.ijse.spring.dto.SuperDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CustomerDTO {
+public class ItemDTO implements SuperDTO {
     private String id;
     private String name;
-    private String address;
-    private String phone;
+    private Double price;
+    private Integer qty;
 }
