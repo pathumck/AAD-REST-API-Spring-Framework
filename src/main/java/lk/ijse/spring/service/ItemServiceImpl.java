@@ -1,0 +1,27 @@
+package lk.ijse.spring.service;
+
+import lk.ijse.spring.dao.ItemDAO;
+import lk.ijse.spring.dto.impl.ItemDTO;
+import lk.ijse.spring.entity.impl.ItemEntity;
+import lk.ijse.spring.exception.DataPersistException;
+import lk.ijse.spring.util.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class ItemServiceImpl implements ItemService {
+    @Autowired
+    ItemDAO itemDAO;
+    @Autowired
+    Mapping mapping;
+    @Override
+    public void saveItem(ItemDTO itemDTO) {
+        ItemEntity itemEntity = mapping.toItemEntity(itemDTO);
+        ItemEntity save = itemDAO.save(itemEntity);
+        if (save == null) {
+            throw new DataPersistException("Item Not Saved");
+        }
+    }
+}
