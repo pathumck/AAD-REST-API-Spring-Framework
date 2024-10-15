@@ -1,6 +1,7 @@
 package lk.ijse.spring.service;
 
 import lk.ijse.spring.dao.ItemDAO;
+import lk.ijse.spring.dto.ItemStatus;
 import lk.ijse.spring.dto.impl.ItemDTO;
 import lk.ijse.spring.entity.impl.ItemEntity;
 import lk.ijse.spring.exception.DataPersistException;
@@ -48,6 +49,16 @@ public class ItemServiceImpl implements ItemService {
             throw new ItemNotFoundException("Item with id " + itemId + " not found");
         }else {
             itemDAO.deleteById(itemId);
+        }
+    }
+
+    @Override
+    public ItemStatus getSelectedItem(String itemId) {
+        if (itemDAO.existsById(itemId)) {
+            var selectedItem = itemDAO.getReferenceById(itemId);
+            return mapping.toItemDTO(selectedItem);
+        }else {
+            throw new ItemNotFoundException();
         }
     }
 

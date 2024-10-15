@@ -14,4 +14,7 @@ public class Mapping {
     public ItemEntity toItemEntity(ItemDTO itemDTO){
         return modelMapper.map(itemDTO, ItemEntity.class);
     }
+    public ItemDTO toItemDTO(ItemEntity itemEntity){
+        return modelMapper.map(itemEntity, ItemDTO.class);
+    }
 }

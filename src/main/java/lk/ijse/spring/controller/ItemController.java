@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.ItemStatus;
 import lk.ijse.spring.dto.impl.ItemDTO;
 import lk.ijse.spring.exception.DataPersistException;
 import lk.ijse.spring.exception.ItemNotFoundException;
@@ -58,5 +59,9 @@ public class ItemController {
         }
     }
 
+    @GetMapping(value = "/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ItemStatus getSelectedItem(@PathVariable("itemId") String itemId) {
+        return itemService.getSelectedItem(itemId);
+    }
 
 }
