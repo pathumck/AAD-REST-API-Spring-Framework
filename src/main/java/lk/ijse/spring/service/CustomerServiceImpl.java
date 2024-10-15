@@ -1,6 +1,7 @@
 package lk.ijse.spring.service;
 
 import lk.ijse.spring.dao.CustomerDAO;
+import lk.ijse.spring.dto.CustomerStatus;
 import lk.ijse.spring.dto.impl.CustomerDTO;
 import lk.ijse.spring.entity.impl.CustomerEntity;
 import lk.ijse.spring.exception.CustomerNotFoundException;
@@ -48,6 +49,16 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerNotFoundException("Customer with id " + customerId + " not found");
         }else {
             customerDAO.deleteById(customerId);
+        }
+    }
+
+    @Override
+    public CustomerStatus getSelectedCustomer(String customerId) {
+        if (customerDAO.existsById(customerId)) {
+            var selectedCustomer = customerDAO.getReferenceById(customerId);
+            return mapping.toCustomerDTO(selectedCustomer);
+        }else {
+            throw new CustomerNotFoundException();
         }
     }
 }

@@ -1,5 +1,6 @@
 package lk.ijse.spring.util;
 
+import lk.ijse.spring.dto.CustomerStatus;
 import lk.ijse.spring.dto.impl.CustomerDTO;
 import lk.ijse.spring.dto.impl.ItemDTO;
 import lk.ijse.spring.entity.impl.CustomerEntity;
@@ -27,5 +28,8 @@ public class Mapping {
     }
     public CustomerEntity toCustomerEntity(CustomerDTO customerDTO){
         return modelMapper.map(customerDTO, CustomerEntity.class);
+    }
+    public CustomerDTO toCustomerDTO(CustomerEntity customerEntity) {
+        return modelMapper.map(customerEntity, CustomerDTO.class);
     }
 }

@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.CustomerStatus;
 import lk.ijse.spring.dto.impl.CustomerDTO;
 import lk.ijse.spring.exception.DataPersistException;
 import lk.ijse.spring.service.CustomerService;
@@ -54,5 +55,10 @@ public class CustomerController {
             exception.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CustomerStatus getSelectedCustomer(@PathVariable("customerId") String customerId) {
+        return customerService.getSelectedCustomer(customerId);
     }
 }
