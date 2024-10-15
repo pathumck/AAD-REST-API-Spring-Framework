@@ -40,4 +40,15 @@ public class ItemServiceImpl implements ItemService {
             findNote.get().setQty(itemDTO.getQty());
         }
     }
+
+    @Override
+    public void deleteItem(String itemId) {
+        Optional<ItemEntity> findNote = itemDAO.findById(itemId);
+        if (!findNote.isPresent()) {
+            throw new ItemNotFoundException("Item with id " + itemId + " not found");
+        }else {
+            itemDAO.deleteById(itemId);
+        }
+    }
+
 }

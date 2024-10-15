@@ -44,4 +44,19 @@ public class ItemController {
         }
     }
 
+    @DeleteMapping(value = "/{itemId}")
+    public ResponseEntity<Void> deleteItem(@PathVariable ("itemId") String itemId) {
+        try {
+            itemService.deleteItem(itemId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (ItemNotFoundException exception) {
+            exception.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception exception) {
+            exception.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
