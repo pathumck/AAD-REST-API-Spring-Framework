@@ -1,6 +1,8 @@
 package lk.ijse.spring.util;
 
+import lk.ijse.spring.dto.impl.CustomerDTO;
 import lk.ijse.spring.dto.impl.ItemDTO;
+import lk.ijse.spring.entity.impl.CustomerEntity;
 import lk.ijse.spring.entity.impl.ItemEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -22,5 +24,8 @@ public class Mapping {
     }
     public List<ItemDTO> toItemDTOList(List<ItemEntity> itemEntities){
         return modelMapper.map(itemEntities, new TypeToken<List<ItemDTO>>(){}.getType());
+    }
+    public CustomerEntity toCustomerEntity(CustomerDTO customerDTO){
+        return modelMapper.map(customerDTO, CustomerEntity.class);
     }
 }
