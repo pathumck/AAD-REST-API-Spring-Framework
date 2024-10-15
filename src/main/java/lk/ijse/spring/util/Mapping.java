@@ -3,8 +3,11 @@ package lk.ijse.spring.util;
 import lk.ijse.spring.dto.impl.ItemDTO;
 import lk.ijse.spring.entity.impl.ItemEntity;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class Mapping {
@@ -16,5 +19,8 @@ public class Mapping {
     }
     public ItemDTO toItemDTO(ItemEntity itemEntity){
         return modelMapper.map(itemEntity, ItemDTO.class);
+    }
+    public List<ItemDTO> toItemDTOList(List<ItemEntity> itemEntities){
+        return modelMapper.map(itemEntities, new TypeToken<List<ItemDTO>>(){}.getType());
     }
 }
