@@ -53,4 +53,9 @@ public class OrderServiceImpl implements OrderService {
             orderDetailService.saveOrderDetail(orderDetailDTO);
         }
     }
+
+    @Override
+    public String getLastOrderId() {
+        return orderDAO.getLastOrderId();
+    }
 }
