@@ -8,4 +8,10 @@ public class RegexProcess {
         Pattern regexPattern = Pattern.compile(regexForItemId);
         return regexPattern.matcher(itemId).matches();
     }
+
+    public static boolean customerIdValidation(String customerId) {
+        String regexForCustomerId = "^C00\\d+$";
+        Pattern regexPattern = Pattern.compile(regexForCustomerId);
+        return regexPattern.matcher(customerId).matches();
+    }
 }

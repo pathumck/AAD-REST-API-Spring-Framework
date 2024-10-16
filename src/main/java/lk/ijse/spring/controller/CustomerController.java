@@ -1,9 +1,11 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.customStatusCodes.SelectedItemAndCustomerErrorStatus;
 import lk.ijse.spring.dto.CustomerStatus;
 import lk.ijse.spring.dto.impl.CustomerDTO;
 import lk.ijse.spring.exception.DataPersistException;
 import lk.ijse.spring.service.CustomerService;
+import lk.ijse.spring.util.RegexProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +36,9 @@ public class CustomerController {
     @PutMapping(value = "/{customerId}")
     public ResponseEntity<Void> updateCustomer(@PathVariable("customerId") String customerId, @RequestBody CustomerDTO customerDTO) {
         try {
+            if (!RegexProcess.customerIdValidation(customerId) || customerDTO == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             customerService.updateCustomer(customerId, customerDTO);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (DataPersistException exception) {
@@ -48,6 +53,9 @@ public class CustomerController {
     @DeleteMapping(value = "/{customerId}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable("customerId") String customerId) {
         try {
+            if (!RegexProcess.customerIdValidation(customerId)) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             customerService.deleteCustomer(customerId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (DataPersistException exception) {
@@ -61,6 +69,9 @@ public class CustomerController {
 
     @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public CustomerStatus getSelectedCustomer(@PathVariable("customerId") String customerId) {
+        if (!RegexProcess.customerIdValidation(customerId)) {
+            return new SelectedItemAndCustomerErrorStatus(1, "Invalid Customer Id");
+        }
         return customerService.getSelectedCustomer(customerId);
     }
 
