@@ -11,4 +11,5 @@ public interface ItemService {
     void deleteItem(String itemId);
     ItemStatus getSelectedItem(String itemId);
     List<ItemDTO> getAllItems();
+    void updateItemQty(String code, Integer qty);
 }

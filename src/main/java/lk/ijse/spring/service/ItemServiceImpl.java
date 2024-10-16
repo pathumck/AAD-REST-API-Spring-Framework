@@ -68,4 +68,14 @@ public class ItemServiceImpl implements ItemService {
         return mapping.toItemDTOList(itemDAO.findAll());
     }
 
+    @Override
+    public void updateItemQty(String code, Integer qty) {
+        Optional<ItemEntity> findItem = itemDAO.findById(code);
+        if (!findItem.isPresent()) {
+            throw new ItemNotFoundException("Item with id " + code + " not found");
+        }else {
+            findItem.get().setQty(findItem.get().getQty() - qty);
+        }
+    }
+
 }

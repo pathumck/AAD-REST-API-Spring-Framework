@@ -12,14 +12,16 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "item")
-public class ItemEntity implements SuperEntity {
+@Table(name = "Orders")
+public class OrderEntity implements SuperEntity {
     @Id
-    private String id;
-    private String name;
-    private Double price;
-    private Integer qty;
+    private String orderId;
+    private Double total;
+    private String date;
 
-    @OneToMany(mappedBy = "itemEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
     private List<OrderDetailEntity> orderDetails;
+    @ManyToOne
+    @JoinColumn(name = "customerId", nullable = false)
+    private CustomerEntity customerEntity;
 }
